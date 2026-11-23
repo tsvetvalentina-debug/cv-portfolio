@@ -66,6 +66,8 @@
   /* featured case */
   .case{display:grid;grid-template-columns:minmax(260px,340px) 1fr;gap:clamp(24px,3vw,56px);padding-bottom:clamp(64px,8vw,120px)}
   .case-info{position:sticky;top:24px;align-self:start}
+  .case-rev{grid-template-columns:1fr minmax(260px,340px)}
+  .case-rev .case-info{order:2}
   .case-num{font:300 64px/1 var(--serif);color:var(--sand)}
   .case-info h3{font:400 34px/1.1 var(--serif);margin:12px 0 6px}
   .case-info .role{color:var(--ink-2);margin:0 0 28px}
@@ -89,6 +91,8 @@
   .ba-after{background:var(--after);clip-path:inset(0 0 0 var(--pos))}
   .tag{position:absolute;top:18px;font:500 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;padding:9px 13px;border-radius:999px;background:rgba(251,250,247,.9);backdrop-filter:blur(6px);z-index:2;pointer-events:none}
   .tag.b{left:18px;color:var(--muted)} .tag.a{right:18px;color:var(--ink)}
+  .tag{transition:opacity .25s ease}
+  .tag.off{opacity:0}
   .ba-line{position:absolute;top:0;bottom:0;left:var(--pos);width:2px;margin-left:-1px;background:#fff;z-index:3;pointer-events:none;box-shadow:0 0 12px rgba(0,0,0,.15)}
   .ba-knob{position:absolute;top:50%;left:50%;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 6px 20px rgba(0,0,0,.18)}
   .ba-knob svg{width:30px;height:30px;color:var(--ink)}
@@ -122,6 +126,7 @@
   @media (max-width:1100px){
     .hero{grid-template-columns:1fr}
     .case{grid-template-columns:1fr}
+    .case-rev .case-info{order:0}
     .case-info{position:static}
   }
   @media (max-width:760px){
@@ -197,7 +202,7 @@
       </div>
     </article>
 
-    <article class="case">
+    <article class="case case-rev">
       <div class="case-info">
         <div class="case-num">02</div>
         <h3 data-i18n="rName">Roman</h3>
@@ -348,7 +353,9 @@ setLang(startLang);
 // before/after sliders
 document.querySelectorAll('[data-ba]').forEach(ba=>{
   const input = ba.querySelector('input');
-  const set = ()=>ba.style.setProperty('--pos', input.value+'%');
+  const tb = ba.querySelector('.tag.b'), ta = ba.querySelector('.tag.a');
+  const set = ()=>{ const v = +input.value; ba.style.setProperty('--pos', v+'%');
+    tb.classList.toggle('off', v < 12); ta.classList.toggle('off', v > 88); };
   input.addEventListener('input', set); set();
 });
 
