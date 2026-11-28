@@ -2,184 +2,214 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>document.documentElement.classList.add("js")</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Profile Optimization · CV Portfolio</title>
-<link rel="icon" type="image/png" href="images/pineapple.png">
+<title>Profile Optimization · Pineapple Jobs</title>
+<link rel="icon" type="image/png" href="images/logo.png">
 <meta name="description" content="CV rewriting and redesign: before and after.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+  /* Pineapple Jobs brand (logo A2): navy / gold / teal / cream, white gaps between boxes */
   :root{
-    --bg:#f3f0ea; --paper:#fbfaf7; --ink:#1e1c19; --ink-2:#4a4640; --muted:#8b857b;
-    --line:#dcd6cc; --sand:#c8b89f; --before:#e4e2de; --after:#ebe4d8;
-    --serif:Jost, system-ui, sans-serif; --sans:Jost, system-ui, sans-serif;
-    --gutter:clamp(16px,4vw,64px); --max:1720px;
+    --bg:#F6F1E7; --gap-c:#FFFFFF; --ink:#12303A; --ink-2:#3C5258; --muted:#5E7176;
+    --yellow:#F2B84B; --teal:#2FA39A; --teal-text:#1E7F77; --navy:#0C2229; --light:#F4F1EA;
+    --before:#ECE6DA; --after:#E3F1EE;
+    --head:"Inter Tight", system-ui, sans-serif; --sans:Jost, system-ui, sans-serif;
+    --gap:6px; --pad:clamp(20px,2.2vw,40px); --max:1720px;
+    --ease:cubic-bezier(.2,.8,.2,1);
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+  body{margin:0;background:var(--gap-c);color:var(--ink);font:400 16px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
   img{display:block;max-width:100%}
   h1,h2,h3,.sec-head p,.card-meta p,.process b{text-wrap:balance}
   p,li span,footer span{text-wrap:pretty}
   a{color:inherit}
-  .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
+  .wrap{max-width:var(--max);margin:0 auto;padding:var(--gap);display:flex;flex-direction:column;gap:var(--gap)}
+  .tile{background:var(--bg);padding:var(--pad);position:relative;overflow:hidden;isolation:isolate}
   .eyebrow{font:500 12px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  h1,h2,h3,.stats b,.process b{font-family:var(--head);font-weight:700;text-transform:uppercase;letter-spacing:-.025em}
+
+  /* hover fill rising from the bottom (same as the main page) */
+  .fill::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--fill,var(--yellow));
+    transform:scaleY(0);transform-origin:bottom;transition:transform .55s var(--ease)}
+  .fill:hover::before{transform:scaleY(1)}
+  .fill.dark{transition:color .3s ease .1s}
+  .fill.dark:hover,.fill.dark:hover span,.fill.dark:hover p{color:var(--light)}
 
   /* top bar */
-  .top{display:flex;justify-content:space-between;align-items:center;padding:28px 0;border-bottom:1px solid var(--line)}
-  .brand{display:inline-flex;align-items:center;gap:10px}
-  .brand img{height:28px;width:auto;transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+  .top{display:flex;justify-content:space-between;align-items:center;gap:20px;padding-block:18px}
+  .brand{display:inline-flex;align-items:center;gap:14px;text-decoration:none;color:inherit}
+  .brand img{height:44px;width:auto;transition:transform .5s var(--ease)}
   .brand:hover img{transform:rotate(-8deg) scale(1.08)}
-  .top nav{display:flex;gap:28px;margin-left:auto;margin-right:28px}
-  a.brand{text-decoration:none;color:inherit}
+  .brand .wordmark{display:block;font:700 18px/.9 var(--head);text-transform:uppercase;letter-spacing:-.02em}
+  .brand .eyebrow{display:block;margin-top:6px;color:var(--teal-text)}
+  .top nav{display:flex;gap:28px;margin-left:auto;margin-right:20px}
+  .top nav a{text-decoration:none;font:500 12px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);
+    background:linear-gradient(currentColor,currentColor) left bottom/0 1px no-repeat;padding-bottom:4px;transition:background-size .35s var(--ease),color .2s}
+  .top nav a:hover{color:var(--ink);background-size:100% 1px}
   .icons{display:inline-flex;gap:6px;align-items:center;vertical-align:middle}
-  .ic{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;color:var(--ink-2);transition:background .2s,color .2s}
-  .ic:hover{background:var(--ink);color:var(--paper)}
+  .ic{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;color:var(--ink);transition:background .2s,color .2s,transform .3s var(--ease)}
+  .ic:hover{background:var(--teal);color:var(--ink);transform:translateY(-2px)}
   .ic:focus-visible,a.brand:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
-  .ic svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linejoin:round;stroke-linecap:round}
+  .ic svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round;stroke-linecap:round}
   .ic[hidden]{display:none}
-  .lang{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:2px;margin-right:14px}
-  .lang button{border:0;background:none;font:500 11px/1 var(--sans);letter-spacing:.12em;color:var(--muted);padding:7px 10px;border-radius:999px;cursor:pointer}
-  .lang button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+  .lang{display:inline-flex;border:1px solid var(--ink);border-radius:999px;padding:2px;margin-right:12px}
+  .lang button{border:0;background:none;font:500 11px/1 var(--sans);letter-spacing:.12em;color:var(--ink-2);padding:7px 10px;border-radius:999px;cursor:pointer}
+  .lang button[aria-pressed="true"]{background:var(--ink);color:var(--light)}
   .lang button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
   .foot-l{display:inline-flex;align-items:center;gap:12px;flex-wrap:wrap}
-  .top nav a{text-decoration:none;font-size:14px;color:var(--ink-2)}
-  .top nav a:hover{color:var(--ink)}
 
-  /* hero */
-  .hero{display:grid;grid-template-columns:1.7fr 1fr;gap:var(--gutter);align-items:end;padding:clamp(56px,9vw,140px) 0 clamp(48px,6vw,88px)}
-  .hero h1{font:300 clamp(44px,6.4vw,112px)/1 var(--serif);letter-spacing:-.02em;margin:18px 0 0}
-  .hero h1 em{color:var(--muted)}
-  html[lang=ru] .hero h1{font-size:clamp(38px,5.2vw,92px)}
-  .hero p{font-size:clamp(17px,1.4vw,20px);color:var(--ink-2);max-width:40ch;margin:0 auto 32px;text-align:center}
-  .stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--ink)}
-  .stats div{padding:16px 4px 0;text-align:center}
-  .stats b{display:block;letter-spacing:.06em;font:400 clamp(17px,1.4vw,24px)/1.1 var(--serif);white-space:nowrap;margin-bottom:6px}
+  /* hero: big headline box + lead box + three stat boxes */
+  .hero{display:grid;grid-template-columns:1.7fr 1fr;gap:var(--gap)}
+  .hero-main{display:flex;flex-direction:column;justify-content:flex-end;min-height:clamp(360px,40vw,600px)}
+  .hero h1{font-size:clamp(40px,5.6vw,104px);line-height:.92;margin:0}
+  .hero h1 em{font-style:normal;color:var(--teal-text)}
+  html[lang=ru] .hero h1{font-size:clamp(34px,4.5vw,84px)}
+  .hero-side{display:grid;grid-template-rows:1fr auto;gap:var(--gap)}
+  .lead{display:flex;align-items:flex-end}
+  .hero p{font-size:clamp(17px,1.35vw,21px);color:var(--ink-2);max-width:36ch;margin:0}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
+  .stats div{padding:22px 14px;text-align:center}
+  .stats div:nth-child(1){--fill:var(--yellow)} .stats div:nth-child(2){--fill:var(--teal)} .stats div:nth-child(3){--fill:var(--ink)}
+  .stats b{display:block;font-size:clamp(18px,1.6vw,28px);line-height:1;white-space:nowrap;margin-bottom:8px}
   .stats span{display:block;font-size:12px;line-height:1.35;color:var(--muted);text-wrap:balance}
 
   /* section head */
-  .sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:24px;border-top:1px solid var(--line);padding:28px 0 36px}
-  .sec-head h2{font:300 clamp(30px,3.4vw,52px)/1.05 var(--serif);margin:0;letter-spacing:-.01em}
-  .sec-head p{margin:0;color:var(--muted);max-width:44ch;font-size:15px;text-align:right}
+  .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+  .sec-head h2{font-size:clamp(32px,4vw,72px);line-height:.92;margin:0}
+  .sec-head p{margin:0;color:var(--ink-2);max-width:44ch;font-size:15px;text-align:right}
 
   /* featured case */
-  .case{display:grid;grid-template-columns:minmax(260px,340px) 1fr;gap:clamp(24px,3vw,56px);padding-bottom:clamp(64px,8vw,120px)}
+  section{display:flex;flex-direction:column;gap:var(--gap)}
+  .case{display:grid;grid-template-columns:minmax(260px,360px) 1fr;gap:clamp(24px,3vw,56px);overflow:visible}
   .case-info{position:sticky;top:24px;align-self:start}
-  .case-rev{grid-template-columns:1fr minmax(260px,340px)}
+  .case-rev{grid-template-columns:1fr minmax(260px,360px)}
   .case-rev .case-info{order:2}
-  .case-num{font:300 64px/1 var(--serif);color:var(--sand)}
-  .case-info h3{font:400 34px/1.1 var(--serif);margin:12px 0 6px}
-  .case-info .role{color:var(--ink-2);margin:0 0 28px}
-  .changes{list-style:none;padding:0;margin:0;border-top:1px solid var(--line)}
-  .changes li{display:grid;grid-template-columns:28px 1fr;padding:14px 0;border-bottom:1px solid var(--line);font-size:15px;color:var(--ink-2)}
-  .changes li::before{content:counter(c,decimal-leading-zero);counter-increment:c;font-size:11px;color:var(--muted);padding-top:4px}
-  .changes{counter-reset:c}
+  .case-num{display:none}
+  .case-info h3{font-size:clamp(34px,3vw,48px);line-height:.95;margin:0 0 8px}
+  .case-info .role{color:var(--ink-2);margin:0 0 26px}
+  .changes{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
+  .changes li{display:grid;grid-template-columns:22px 1fr;align-items:start;padding:14px 16px 14px 14px;background:#FFFCF6;font-size:15px;color:var(--ink-2);
+    transition:transform .35s var(--ease)}
+  .changes li::before{content:"";width:10px;height:10px;margin-top:7px;background:var(--yellow);border:1.5px solid var(--ink);transform:rotate(45deg);transition:background .3s,transform .4s var(--ease)}
+  .changes li:hover{transform:translateX(4px)}
+  .changes li:hover::before{background:var(--teal);transform:rotate(225deg) scale(1.15)}
   .changes strong{color:var(--ink);font-weight:500}
-  .btn{display:inline-flex;align-items:center;gap:8px;margin-top:24px;padding:11px 18px;border:1px solid var(--ink);border-radius:999px;background:none;font:500 14px var(--sans);color:var(--ink);cursor:pointer;transition:background .2s,color .2s}
-  .btn:hover{background:var(--ink);color:var(--paper)}
+  .btn{display:inline-flex;align-items:center;gap:8px;margin-top:24px;padding:11px 18px;border:1px solid var(--ink);background:none;font:500 13px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--ink);cursor:pointer;transition:background .2s,color .2s}
+  .btn:hover{background:var(--ink);color:var(--light)}
   .btn:focus-visible,.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
-  .variant{display:flex;gap:14px;align-items:center;margin-top:28px;padding:12px;background:var(--paper);border:1px solid var(--line);border-radius:10px;cursor:pointer;text-align:left;font:inherit;color:inherit;width:100%}
-  .variant img{width:96px;border:1px solid var(--line)}
-  .variant small{display:block;color:var(--muted);font-size:12px}
 
   /* before/after slider */
-  .ba{--pos:50%;position:relative;aspect-ratio:16/9.4;border-radius:14px;overflow:hidden;user-select:none;background:var(--before);box-shadow:0 1px 0 rgba(0,0,0,.04),0 30px 60px -40px rgba(40,30,20,.35)}
+  .ba{--pos:50%;position:relative;aspect-ratio:16/9.4;overflow:hidden;user-select:none;background:var(--before)}
   .ba-layer{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:3.2% 4%}
-  .ba-layer img{max-height:100%;max-width:100%;width:auto;height:auto;object-fit:contain;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.06),0 18px 40px -18px rgba(40,30,20,.35)}
-  .ba-before img{filter:saturate(.75)}
+  .ba-layer img{max-height:100%;max-width:100%;width:auto;height:auto;object-fit:contain;background:#fff;box-shadow:0 2px 4px rgba(18,48,58,.06),0 18px 40px -18px rgba(18,48,58,.35)}
+  .ba-before img{filter:saturate(.7)}
   .ba-after{background:var(--after);clip-path:inset(0 0 0 var(--pos))}
-  .tag{position:absolute;top:18px;font:500 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;padding:9px 13px;border-radius:999px;background:rgba(251,250,247,.9);backdrop-filter:blur(6px);z-index:2;pointer-events:none}
-  .tag.b{left:18px;color:var(--muted)} .tag.a{right:18px;color:var(--ink)}
-  .tag{transition:opacity .25s ease}
+  .tag{position:absolute;top:16px;font:600 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;padding:9px 13px;z-index:2;pointer-events:none;transition:opacity .25s ease}
+  .tag.b{left:16px;background:var(--light);color:var(--ink-2)} .tag.a{right:16px;background:var(--teal);color:var(--ink)}
   .tag.off{opacity:0}
-  .ba-line{position:absolute;top:0;bottom:0;left:var(--pos);width:2px;margin-left:-1px;background:#fff;z-index:3;pointer-events:none;box-shadow:0 0 12px rgba(0,0,0,.15)}
-  .ba-knob{position:absolute;top:50%;left:50%;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 6px 20px rgba(0,0,0,.18)}
-  .ba-knob svg{width:30px;height:30px;color:var(--ink)}
+  .ba-line{position:absolute;top:0;bottom:0;left:var(--pos);width:3px;margin-left:-1.5px;background:var(--ink);z-index:3;pointer-events:none}
+  .ba-knob{position:absolute;top:50%;left:50%;width:52px;height:52px;margin:-26px 0 0 -26px;background:var(--yellow);border:2px solid var(--ink);transform:rotate(45deg);display:grid;place-items:center;transition:transform .3s var(--ease)}
+  .ba-knob svg{width:26px;height:26px;color:var(--ink);transform:rotate(-45deg)}
+  .ba:hover .ba-knob{transform:rotate(45deg) scale(1.08)}
   .ba input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;z-index:4;touch-action:pan-y}
-  .ba:has(input:focus-visible) .ba-knob{outline:2px solid var(--ink);outline-offset:3px}
-  .ba-hint{display:flex;justify-content:space-between;margin-top:12px;font-size:13px;color:var(--muted)}
+  .ba:has(input:focus-visible) .ba-knob{outline:2px solid var(--ink);outline-offset:4px}
 
   /* gallery */
-  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(20px,2.4vw,40px);padding-bottom:clamp(64px,8vw,120px)}
-  .card{display:block;width:100%}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--gap)}
+  .card{display:block;width:100%;background:var(--bg);padding:var(--pad)}
   .card-img img,.ba img{pointer-events:none;-webkit-user-drag:none}
-  .card-img{aspect-ratio:16/10;background:var(--paper);border:1px solid var(--line);border-radius:12px;display:flex;align-items:center;justify-content:center;padding:5%;overflow:hidden;position:relative}
-  .card-img img{max-height:100%;width:auto;object-fit:contain;box-shadow:0 2px 4px rgba(0,0,0,.05),0 16px 32px -18px rgba(40,30,20,.35);transition:transform .5s cubic-bezier(.2,.7,.2,1)}
-  .pages{position:absolute;right:14px;bottom:14px;font-size:12px;color:var(--muted);background:var(--bg);padding:5px 10px;border-radius:999px}
-  .card-meta{display:flex;flex-direction:column;gap:14px;padding:18px 2px 0}
-  .card-meta h3{font:400 26px/1.1 var(--serif);margin:0 0 6px}
-  .card-meta p{margin:0;color:var(--muted);font-size:14px}
+  .card-img{aspect-ratio:16/10;background:#FFFCF6;display:flex;align-items:center;justify-content:center;padding:5%;overflow:hidden;position:relative}
+  .card-img img{max-height:100%;width:auto;object-fit:contain;box-shadow:0 2px 4px rgba(18,48,58,.05),0 16px 32px -18px rgba(18,48,58,.35);transition:transform .6s var(--ease)}
+  .card:hover .card-img img{transform:scale(1.04) translateY(-4px)}
+  .card-meta{display:flex;flex-direction:column;gap:14px;padding:20px 0 0}
+  .card-meta h3{font-size:clamp(26px,2.2vw,36px);line-height:.95;margin:0 0 6px}
+  .card-meta p{margin:0;color:var(--ink-2);font-size:14px}
   .chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-start;align-content:flex-start}
-  .chips span{font-size:12px;padding:5px 10px;border:1px solid var(--line);border-radius:999px;color:var(--ink-2)}
+  .chips span{font:500 11px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;padding:7px 11px;border:1px solid var(--ink);border-radius:999px;color:var(--ink);transition:background .25s,color .25s}
+  .card:hover .chips span{background:var(--ink);color:var(--light)}
 
-  /* process */
-  .process{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--ink);margin-bottom:clamp(64px,8vw,120px)}
-  .process div{padding:22px 24px 0 0}
-  .process b{font:400 22px/1.1 var(--serif);display:block;margin:10px 0 8px}
+  /* process: four boxes with colour fills */
+  .process{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap)}
+  .process div{min-height:220px;display:flex;flex-direction:column;justify-content:flex-start}
+  .process div:nth-child(1){--fill:var(--yellow)} .process div:nth-child(2){--fill:var(--teal)}
+  .process div:nth-child(3){--fill:var(--yellow)} .process div:nth-child(4){--fill:var(--ink)}
+  .process .eyebrow{display:none}
+  .process b{font-size:clamp(24px,2.2vw,36px);line-height:.95;display:block;margin:0 0 10px}
   .process p{margin:0;color:var(--ink-2);font-size:14px;max-width:32ch}
 
-  footer{border-top:1px solid var(--line);padding:28px 0 48px;display:flex;justify-content:space-between;gap:24px;font-size:13px;color:var(--muted)}
+  footer{display:flex;justify-content:space-between;align-items:center;gap:24px;font-size:13px;color:var(--ink-2)}
 
+  /* entrance */
+  .tile{transition:opacity .7s ease, translate .8s var(--ease)}
+  .js body:not(.loaded) .tile{opacity:0;translate:0 14px}
 
   @media (min-width:1101px){ #process .sec-head p{max-width:none;white-space:nowrap} }
+  .brand .wordmark,.brand .eyebrow,.top nav a{white-space:nowrap}
   @media (max-width:1100px){
+    .top nav{display:none}
+    .lang{margin-left:auto}
+    .hero-main{min-height:0;padding-top:clamp(72px,12vw,120px)}
+    .process div{min-height:0}
     .hero{grid-template-columns:1fr}
     .case{grid-template-columns:1fr}
     .case-rev .case-info{order:0}
     .case-info{position:static}
+    .process{grid-template-columns:1fr 1fr}
   }
   @media (max-width:760px){
+    .top{flex-wrap:wrap}
     .top nav{display:none}
     .grid{grid-template-columns:1fr}
-    .card-meta{flex-direction:column}
-    .chips{justify-content:flex-start;max-width:none}
-    .process{grid-template-columns:1fr 1fr}
-    .sec-head{flex-direction:column}
+    .sec-head{flex-direction:column;align-items:flex-start}
     .sec-head p{text-align:left}
     .ba{aspect-ratio:4/3.4}
-    .ba-knob{width:44px;height:44px;margin:-22px 0 0 -22px}
+    .ba-knob{width:42px;height:42px;margin:-21px 0 0 -21px}
     .tag{top:10px;padding:7px 10px} .tag.b{left:10px} .tag.a{right:10px}
-    footer{flex-direction:column}
+    footer{flex-direction:column;align-items:flex-start}
   }
   @media (max-width:480px){
+    html[lang=ru] .hero h1{font-size:min(34px,8.6vw)}
+    .process div{min-height:0}
     .process{grid-template-columns:1fr}
-    .process div{padding:20px 0 0}
-    .brand .eyebrow{line-height:1.35;letter-spacing:.12em}
+    .stats{grid-template-columns:1fr}
   }
-  @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+  @media (prefers-reduced-motion:reduce){*,*::before{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header class="top">
-    <a class="brand" data-link="logo" href="#" target="_blank" rel="noopener" aria-label="Pineapple"><img src="images/pineapple.png" alt="Pineapple" width="22" height="30"><span class="eyebrow" data-i18n="brand">Profile Optimization</span></a>
+  <header class="tile top">
+    <a class="brand" data-link="logo" href="#" target="_blank" rel="noopener" aria-label="Pineapple Jobs on Instagram"><img src="images/logo.png" alt="" width="348" height="480"><span><span class="wordmark">Pineapple Jobs</span><span class="eyebrow" data-i18n="brand">Profile Optimization</span></span></a>
     <nav aria-label="Sections"><a href="#before-after" data-i18n="nav1">Before / After</a><a href="#work" data-i18n="nav2">Selected work</a><a href="#process" data-i18n="nav3">Process</a></nav>
     <span class="lang" role="group" aria-label="Language"><button type="button" data-lang="en">EN</button><button type="button" data-lang="ru">RU</button></span>
     <span class="icons top-icons"><a class="ic" data-link="telegram" href="#" aria-label="Telegram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 4.5 2.8 11.7c-.9.4-.9 1.5 0 1.8l4.6 1.5 1.8 5.4c.2.7 1.1.9 1.6.4l2.6-2.5 4.7 3.5c.6.4 1.4.1 1.6-.6L23 5.8c.2-.9-.7-1.6-1.5-1.3Z"/><path d="m7.4 15 10-7.2-7.5 8.4"/></svg></a><a class="ic" data-link="whatsapp" href="#" aria-label="WhatsApp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 20.5 4.8 16A8.5 8.5 0 1 1 8 19.3Z"/><path d="M9 8.3c.2-.5.5-.5.8-.5h.5c.2 0 .4.1.5.4l.7 1.6c.1.2 0 .5-.1.6l-.5.6c-.1.2-.1.4 0 .6.6 1.1 1.5 2 2.6 2.6.2.1.4.1.6 0l.6-.5c.2-.1.4-.2.6-.1l1.6.7c.3.1.4.3.4.5v.5c0 .3 0 .6-.5.8-.6.3-1.4.5-2.2.2a9.5 9.5 0 0 1-5.4-5.4c-.3-.8-.1-1.6.2-2.2Z"/></svg></a><a class="ic" data-link="email" href="#" aria-label="Email"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg></a></span>
   </header>
 
   <section class="hero">
-    <div>
+    <div class="tile hero-main">
       <h1 data-i18n="h1">Not just an employee.<br><em>A person worth</em> meeting.</h1>
     </div>
-    <div>
-      <p data-i18n="lead">I create a CV around your superpower and strongest sides, so a recruiter sees not just a work history, but a personality with real potential.</p>
+    <div class="hero-side">
+      <div class="tile lead"><p data-i18n="lead">I create a CV around your superpower and strengths, so a recruiter sees not just a work history, but a personality with real potential.</p></div>
       <div class="stats">
-        <div><b>RU ↔ EN</b><span data-i18n="st1">CV translation</span></div>
-        <div><b data-i18n="st2b">ANY STYLE</b><span data-i18n="st2">design on request</span></div>
-        <div><b>PDF</b><span data-i18n="st3">ready to send</span></div>
+        <div class="tile fill"><b>RU ↔ EN</b><span data-i18n="st1">CV translation</span></div>
+        <div class="tile fill"><b data-i18n="st2b">ANY STYLE</b><span data-i18n="st2">design on request</span></div>
+        <div class="tile fill dark"><b>PDF</b><span data-i18n="st3">ready to send</span></div>
       </div>
     </div>
   </section>
 
   <section id="before-after">
-    <div class="sec-head">
+    <div class="tile sec-head">
       <h2 data-i18n="baH">Before / After</h2>
       <p data-i18n="baP">Drag the handle (or use the arrow keys) to compare the original with the final CV.</p>
     </div>
 
-    <article class="case">
+    <article class="tile case">
       <div class="case-info">
         <div class="case-num">01</div>
         <h3 data-i18n="aName">Anton</h3>
@@ -202,7 +232,7 @@
       </div>
     </article>
 
-    <article class="case case-rev">
+    <article class="tile case case-rev">
       <div class="case-info">
         <div class="case-num">02</div>
         <h3 data-i18n="rName">Roman</h3>
@@ -227,7 +257,7 @@
   </section>
 
   <section id="work">
-    <div class="sec-head">
+    <div class="tile sec-head">
       <h2 data-i18n="wH">Selected work</h2>
       <p data-i18n="wP">Finished CVs, shown as previews to protect clients' privacy.</p>
     </div>
@@ -235,16 +265,16 @@
   </section>
 
   <section id="process">
-    <div class="sec-head"><h2 data-i18n="pH">How it works</h2><p data-i18n="pP">Each CV is built around the person and the job they want next.</p></div>
+    <div class="tile sec-head"><h2 data-i18n="pH">How it works</h2><p data-i18n="pP">Each CV is built around the person and the job they want next.</p></div>
     <div class="process">
-      <div><span class="eyebrow">01</span><b data-i18n="p1b">Talk</b><p data-i18n="p1">We discuss your goals, your strongest sides and the style you like.</p></div>
-      <div><span class="eyebrow">02</span><b data-i18n="p2b">Rewrite</b><p data-i18n="p2">Duties become results, and your personality and potential become a story worth reading to the end.</p></div>
-      <div><span class="eyebrow">03</span><b data-i18n="p3b">Translate</b><p data-i18n="p3">CV translation between Russian and English both ways, adapted for the local market.</p></div>
-      <div><span class="eyebrow">04</span><b data-i18n="p4b">Design</b><p data-i18n="p4">Classic or bold, or any design on request. Delivered as a ready-to-send PDF.</p></div>
+      <div class="tile fill"><span class="eyebrow">01</span><b data-i18n="p1b">Talk</b><p data-i18n="p1">We discuss your goals, your strengths and the style you like.</p></div>
+      <div class="tile fill"><span class="eyebrow">02</span><b data-i18n="p2b">Rewrite</b><p data-i18n="p2">Duties become results, and your personality and potential become a story worth reading to the end.</p></div>
+      <div class="tile fill"><span class="eyebrow">03</span><b data-i18n="p3b">Translate</b><p data-i18n="p3">CV translation from Russian to English and back, adapted for the local market.</p></div>
+      <div class="tile fill dark"><span class="eyebrow">04</span><b data-i18n="p4b">Design</b><p data-i18n="p4">Classic or bold, or any design on request. Delivered as a ready-to-send PDF.</p></div>
     </div>
   </section>
 
-  <footer>
+  <footer class="tile">
     <span class="foot-l"><span data-i18n="f1">Profile Optimization · CV writing, translation &amp; design</span> <span class="icons"><a class="ic" data-link="telegram" href="#" aria-label="Telegram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 4.5 2.8 11.7c-.9.4-.9 1.5 0 1.8l4.6 1.5 1.8 5.4c.2.7 1.1.9 1.6.4l2.6-2.5 4.7 3.5c.6.4 1.4.1 1.6-.6L23 5.8c.2-.9-.7-1.6-1.5-1.3Z"/><path d="m7.4 15 10-7.2-7.5 8.4"/></svg></a><a class="ic" data-link="whatsapp" href="#" aria-label="WhatsApp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 20.5 4.8 16A8.5 8.5 0 1 1 8 19.3Z"/><path d="M9 8.3c.2-.5.5-.5.8-.5h.5c.2 0 .4.1.5.4l.7 1.6c.1.2 0 .5-.1.6l-.5.6c-.1.2-.1.4 0 .6.6 1.1 1.5 2 2.6 2.6.2.1.4.1.6 0l.6-.5c.2-.1.4-.2.6-.1l1.6.7c.3.1.4.3.4.5v.5c0 .3 0 .6-.5.8-.6.3-1.4.5-2.2.2a9.5 9.5 0 0 1-5.4-5.4c-.3-.8-.1-1.6.2-2.2Z"/></svg></a><a class="ic" data-link="email" href="#" aria-label="Email"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg></a></span></span>
     <span data-i18n="f2">Family names, faces and contact details are blurred to protect clients' privacy.</span>
   </footer>
@@ -278,14 +308,14 @@ const work = {
  ru:[
   ["natalia","Наталья","Генеральная управляющая ресторана · Дубай",["Идеальное фото","Ориентир на финансовые показатели","История лидера"]],
   ["bhaskar","Бхаскар","Бар-супервайзер · NEOM, Саудовская Аравия",["Карьерный рост в баре","Ключевые компетенции","Опыт открытия проектов с нуля"]],
-  ["pavel","Павел","Шеф-бармен · Дубай",["Фокус на творчество","Миксология и конкурсы","12 лет опыта — одна страница"]],
+  ["pavel","Павел","Шеф-бармен · Дубай",["Фокус на творчестве","Миксология и конкурсы","12 лет опыта — одна страница"]],
   ["luiza","Луиза","Управляющая ресторана · Маскат",["Карьера в люксовых отелях","5 языков","Гость на первом месте"]]
  ]
 };
 const grid = document.getElementById('grid');
 function renderCards(lang){ grid.innerHTML = work[lang].map(([k,n,r,c])=>{const s=sets[k];return `
   <div class="card">
-    <div class="card-img"><img src="images/${s.p[0][0]}.jpg" alt="${n}'s CV, preview" loading="lazy" draggable="false"></div>
+    <div class="card-img"><img src="images/${s.p[0][0]}.jpg" alt="${lang==='ru' ? 'Резюме: '+n+', превью' : n+"'s CV, preview"}" loading="lazy" draggable="false"></div>
     <div class="card-meta"><div><h3>${n}</h3><p>${r}</p></div><div class="chips">${c.map(x=>`<span>${x}</span>`).join('')}</div></div>
   </div>`}).join(''); }
 
@@ -304,7 +334,7 @@ const RU = {
  "baH": "До / После",
  "baP": "Потяните ползунок (или нажмите стрелки), чтобы сравнить исходное резюме с готовым.",
  "aRole": "Брокер по недвижимости и маркетолог · Дубай",
- "a1": "<strong>Суперсила на первом плане:</strong> YouTube-канал о недвижимости с 20M+ просмотров стал главным героем страницы.",
+ "a1": "<strong>Суперсила на первом плане:</strong> YouTube-канал о недвижимости с 20 млн+ просмотров стал главным героем страницы.",
  "a2": "<strong>Реальные доказательства:</strong> статистика YouTube, Instagram и TikTok и его самые популярные видео.",
  "a3": "<strong>«Я работал…» → результат.</strong> Короткие фразы о том, чего он добивается.",
  "a4": "<strong>Оформлено как страница его YouTube-канала,</strong> чтобы рекрутер увидел автора, а не просто агента.",
@@ -333,7 +363,7 @@ const RU = {
  "aName": "Антон",
  "rName": "Роман"
 };
-const TITLES = {en:"Profile Optimization · CV Portfolio", ru:"Резюме, которое замечают · Портфолио"};
+const TITLES = {en:"Profile Optimization · Pineapple Jobs", ru:"Резюме, которое замечают · Pineapple Jobs"};
 function setLang(lang){
   document.documentElement.lang = lang;
   document.title = TITLES[lang];
@@ -363,6 +393,7 @@ document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',(
 let startLang = 'en';
 try{ startLang = localStorage.getItem('lang') || ((navigator.language||'').toLowerCase().startsWith('ru') ? 'ru' : 'en'); }catch(e){}
 setLang(startLang);
+requestAnimationFrame(()=>requestAnimationFrame(()=>document.body.classList.add('loaded')));
 
 // before/after sliders
 document.querySelectorAll('[data-ba]').forEach(ba=>{
